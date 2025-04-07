@@ -1,0 +1,18 @@
+[
+  {
+    "event": "Italy - Serie A : Bologna vs Napoli",
+    "channels": [
+      { "channel_name": "DAZN 1" },
+      { "channel_name": "DAZN 2 DE" },
+      { "channel_name": "Eleven Sports 1" }
+    ]
+  },
+  {
+    "event": "English Premier League : Everton vs Barcelona",
+    "channels": [
+      { "channel_name": "DAZN 2" },
+      { "channel_name": "Sports TV" },
+      { "channel_name": "Sky NZ 3" }
+    ]
+  }
+]
