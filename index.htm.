@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Match Schedule</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+        h2 { color: #333; }
+        .event { background: #fff; padding: 15px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 0 5px #ccc; }
+        input[type="text"] { padding: 10px; width: 100%; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>📺 Match Schedule</h1>
+    <input type="text" id="search" placeholder="🔍 Search match or channel name...">
+    <div id="schedule-container"></div>
+
+    <script>
+        async function fetchSchedule() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            return data;
+        }
+
+        function displaySchedule(schedule) {
+            const container = document.getElementById('schedule-container');
+            container.innerHTML = '';
+            schedule.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'event';
+                div.innerHTML = <h2>${item.event}</h2><strong>Channel name:</strong><ul>${
+                    item.channels.map(c => <li>${c.channel_name}</li>).join('')
+                }</ul>;
+                container.appendChild(div);
+            });
+        }
+
+        function searchMatches(schedule) {
+            const searchInput = document.getElementById('search');
+            searchInput.addEventListener('input', () => {
+                const keyword = searchInput.value.toLowerCase();
+                const filtered = schedule.filter(item =>
+                    item.event.toLowerCase().includes(keyword) ||
+                    item.channels.some(c => c.channel_name.toLowerCase().includes(keyword))
+                );
+                displaySchedule(filtered);
+            });
+        }
+
+        fetchSchedule().then(schedule => {
+            displaySchedule(schedule);
+            searchMatches(schedule);
+        });
+    </script>
+</body>
+</html>
